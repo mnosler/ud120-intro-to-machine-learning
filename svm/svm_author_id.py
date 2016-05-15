@@ -39,6 +39,15 @@ timeToFit = time()
 clf.fit(features_train, labels_train)
 print "Time to fit ", kernelType, " C=", myC, ": ", time() - timeToFit 
 print "Accuracy: ", clf.score(features_test, labels_test)
+
+predictions = clf.predict(features_test)
+
+chris_predictions = 0
+for prediction in predictions:
+    if(prediction == 1):
+        chris_predictions += 1
+
+print "there are ", chris_predictions, "number of emails predicted to be Chris"
 #########################################################
 
 
