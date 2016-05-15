@@ -27,6 +27,20 @@ features_train, features_test, labels_train, labels_test = preprocess()
 #########################################################
 ### your code goes here ###
 
+from sklearn.naive_bayes import GaussianNB
+# set up naive bayes algorithm
+classifier = GaussianNB()
+t0 = time()
+classifier.fit(features_train, labels_train)
+print "training time: ",round(time()-t0,3),"s"
+
+t0 = time()
+#print "Feature 0 : ",features_test[0]
+#print "Predict feature 0 :", classifier.predict(features_test)
+
+print classifier.score(features_test, labels_test)
+print "Predict time: ",round(time()-t0,3),"s"
+
 
 #########################################################
 
