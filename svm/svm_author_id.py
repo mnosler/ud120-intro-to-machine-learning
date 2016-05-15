@@ -30,7 +30,10 @@ from sklearn import svm
 kernelType = "linear"
 clf = svm.SVC(kernel=kernelType)
 
-print("Beginning Training...")
+features_train = features_train[:len(features_train)/100] 
+labels_train = labels_train[:len(labels_train)/100] 
+
+print("Beginning Training with smaller set...")
 timeToFit = time()
 clf.fit(features_train, labels_train)
 print "Time to fit ", kernelType, ": ", time() - timeToFit 
