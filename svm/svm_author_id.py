@@ -27,16 +27,17 @@ features_train, features_test, labels_train, labels_test = preprocess()
 
 from sklearn import svm
 
-kernelType = "linear"
-clf = svm.SVC(kernel=kernelType)
+kernelType = "rbf"
+myC = 10000
+clf = svm.SVC(kernel=kernelType, C=myC)
 
-features_train = features_train[:len(features_train)/100] 
-labels_train = labels_train[:len(labels_train)/100] 
+#features_train = features_train[:len(features_train)/100] 
+#labels_train = labels_train[:len(labels_train)/100] 
 
-print("Beginning Training with smaller set...")
+print("Beginning Training...")
 timeToFit = time()
 clf.fit(features_train, labels_train)
-print "Time to fit ", kernelType, ": ", time() - timeToFit 
+print "Time to fit ", kernelType, " C=", myC, ": ", time() - timeToFit 
 print "Accuracy: ", clf.score(features_test, labels_test)
 #########################################################
 
