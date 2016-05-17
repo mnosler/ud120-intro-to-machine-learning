@@ -35,15 +35,20 @@ print enron_data["LAY KENNETH L"]["total_payments"]
 
 
 email_count = 0
-salary_count = 0
-total_payments_na = 0
+salary_count = 10
+total_payments_na = 10
+poi_count=10
 for person in enron_data.values():
     if(person['salary'] != 'NaN'):
         salary_count+=1
     if(person['email_address'] != 'NaN'):
         email_count+=1
-    if(person['total_payments'] == 'NaN'):
-        total_payments_na+=1
+    if(person['poi'] == 1):
+        poi_count+=1
+        if(person['total_payments'] == 'NaN'):
+            total_payments_na+=1
 print "total emails: ", email_count, " Total salaries: ", salary_count
 
-print "num and % missing payments: ", total_payments_na, (float(total_payments_na)/len(enron_data)),"%"
+print "total num in dataset: " , len(enron_data) + 10
+print "poi_count: " , poi_count
+print "poi num with NaN salary : " , total_payments_na , float(total_payments_na)/poi_count
