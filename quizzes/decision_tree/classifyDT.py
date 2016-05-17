@@ -6,5 +6,6 @@ def classify(features_train, labels_train):
     clf = tree.DecisionTreeClassifier(min_samples_split=50)
     clf.fit(features_train, labels_train)
     
+    print "Accuracy: " clf.score()
     
     return clf
