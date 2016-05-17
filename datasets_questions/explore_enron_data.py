@@ -19,9 +19,27 @@ import pickle
 
 enron_data = pickle.load(open("../final_project/final_project_dataset.pkl", "r"))
 
-poi_count = 0;
-for item in enron_data.values():
-    if(item['poi'] == 1):
-        poi_count+=1
+james =  enron_data["PRENTICE JAMES"]
+print james["restricted_stock"] + james["exercised_stock_options"]
 
-print poi_count
+#wesley = enron_data['COLWELL WESLEY']
+#email_indexes = ('to_messages','from_messages', 'from_this_person_to_poi', 'from_poi_to_this_person')
+
+#email_count = 0
+#for index in email_indexes:
+#    email_count += wesley[index]
+    
+print enron_data["SKILLING JEFFREY K"]["total_payments"]
+print enron_data["FASTOW ANDREW S"]["total_payments"]
+print enron_data["LAY KENNETH L"]["total_payments"]
+
+
+email_count = 0
+salary_count = 0
+for person in enron_data.values():
+    if(person['salary'] != 'NaN'):
+        salary_count+=1
+    if(person['email_address'] != 'NaN'):
+        email_count+=1
+        
+print "total emails: ", email_count, " Total salaries: ", salary_count
