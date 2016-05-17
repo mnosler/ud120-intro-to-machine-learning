@@ -19,4 +19,9 @@ import pickle
 
 enron_data = pickle.load(open("../final_project/final_project_dataset.pkl", "r"))
 
+poi_count = 0;
+for item in enron_data.values():
+    if(item['poi'] == 1):
+        poi_count+=1
 
+print poi_count
