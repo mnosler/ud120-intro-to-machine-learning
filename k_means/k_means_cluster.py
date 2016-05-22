@@ -15,6 +15,18 @@ sys.path.append("../tools/")
 from feature_format import featureFormat, targetFeatureSplit
 
 
+def getMinAndMaxFeature(feature_name, data_dict):
+    min_val = None
+    max_val = 0
+    for key in data_dict.keys():
+        current_val = data_dict[key][feature_name]
+        if(current_val != 'NaN' and (current_val < min_val or min_val == None)):
+            min_val = current_val
+        elif(current_val != 'NaN' and (current_val > max_val)):
+            max_val = current_val
+            
+    print feature_name, " Min: ", min_val, "Max: ", max_val
+
 
 
 def Draw(pred, features, poi, mark_poi=False, name="image.png", f1_name="feature 1", f2_name="feature 2"):
@@ -48,23 +60,31 @@ data_dict.pop("TOTAL", 0)
 ### can be any key in the person-level dictionary (salary, director_fees, etc.) 
 feature_1 = "salary"
 feature_2 = "exercised_stock_options"
+feature_3 = "total_payments"
 poi  = "poi"
-features_list = [poi, feature_1, feature_2]
+features_list = [poi, feature_1, feature_2, feature_3]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
+
+    
+getMinAndMaxFeature("salary", data_dict)
+getMinAndMaxFeature("exercised_stock_options", data_dict)
 
 
 ### in the "clustering with 3 features" part of the mini-project,
 ### you'll want to change this line to 
 ### for f1, f2, _ in finance_features:
 ### (as it's currently written, the line below assumes 2 features)
-for f1, f2 in finance_features:
+for f1, f2, _ in finance_features:
     plt.scatter( f1, f2 )
 plt.show()
 
 ### cluster here; create predictions of the cluster labels
 ### for the data and store them to a list called pred
 
+from sklearn.cluster import KMeans
+cluster = KMeans(n_clusters=2)
+pred = cluster.fit_predict(finance_features)
 
 
 
