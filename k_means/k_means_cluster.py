@@ -62,7 +62,7 @@ feature_1 = "salary"
 feature_2 = "exercised_stock_options"
 feature_3 = "total_payments"
 poi  = "poi"
-features_list = [poi, feature_1, feature_2, feature_3]
+features_list = [poi, feature_1, feature_2]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
 
@@ -75,7 +75,8 @@ getMinAndMaxFeature("exercised_stock_options", data_dict)
 ### you'll want to change this line to 
 ### for f1, f2, _ in finance_features:
 ### (as it's currently written, the line below assumes 2 features)
-for f1, f2, _ in finance_features:
+
+for f1, f2 in finance_features:
     plt.scatter( f1, f2 )
 plt.show()
 
@@ -83,9 +84,14 @@ plt.show()
 ### for the data and store them to a list called pred
 
 from sklearn.cluster import KMeans
+from sklearn.preprocessing import MinMaxScaler
 cluster = KMeans(n_clusters=2)
-pred = cluster.fit_predict(finance_features)
+scaler = MinMaxScaler()
+rescaled_finance_features = scaler.fit_transform(finance_features)
 
+pred = cluster.fit_predict(rescaled_finance_features)
+
+print "New values for 200k salary and 1M stock options: ", scaler.transform([[200000.,1000000.]])
 
 
 ### rename the "name" parameter when you change the number of features
