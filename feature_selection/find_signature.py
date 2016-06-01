@@ -39,5 +39,23 @@ labels_train   = labels_train[:150]
 
 ### your code goes here
 
+from sklearn.tree import DecisionTreeClassifier
 
+clf = DecisionTreeClassifier()
+clf.fit(features_train, labels_train)
 
+print clf.score(features_test, labels_test)
+
+# get all the feature names to print outliers
+feature_names = vectorizer.get_feature_names()
+
+count = 0
+# go through feature importances.
+# find the most important items and print them out along with their feature name
+for item in clf.feature_importances_:
+    if(item > 0.2):
+        print item
+        print count
+        print feature_names[count]
+        
+    count += 1
